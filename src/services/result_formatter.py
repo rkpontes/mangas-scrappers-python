@@ -5,7 +5,7 @@ import json
 from rich.console import Console
 from rich.table import Table
 
-from src.scrapers.models import ChapterResult, FailureReason
+from src.scrapers.models import BatchResult, ChapterResult, FailureReason
 
 
 RECOMMENDED_DOMAINS = {"mangadex.org"}
@@ -18,6 +18,7 @@ def is_recommended_domain(domain: str) -> bool:
 def format_failure_message(reason: FailureReason | None) -> str:
     mapping = {
         FailureReason.INVALID_URL: "Invalid URL: provide an absolute HTTP or HTTPS chapter URL.",
+        FailureReason.INVALID_FILE: "Invalid file: provide a readable local text file.",
         FailureReason.INACCESSIBLE_CONTENT: "The source page is not accessible through the allowed public-access flow.",
         FailureReason.UNSUPPORTED_STRUCTURE: "The source page structure is not currently supported.",
         FailureReason.NO_IMAGES_FOUND: "The page loaded, but no chapter images were found.",
@@ -64,5 +65,32 @@ def render_human(console: Console, result: ChapterResult) -> None:
         console.print(save)
 
 
-def render_json(result: ChapterResult) -> str:
+def render_human_batch(console: Console, result: BatchResult) -> None:
+    summary = Table(show_header=False, box=None)
+    summary.add_row("Batch File", result.target_path)
+    summary.add_row("Total Lines", str(result.summary.total_lines))
+    summary.add_row("Processed", str(result.summary.processed_entries))
+    summary.add_row("Succeeded", str(result.summary.successful_entries))
+    summary.add_row("Failed", str(result.summary.failed_entries))
+    summary.add_row("Skipped", str(result.summary.skipped_entries))
+    console.print(summary)
+
+    if result.messages:
+        for message in result.messages:
+            console.print(f"- {message}")
+
+    entries = Table(title="Batch Entries")
+    entries.add_column("Line")
+    entries.add_column("Status")
+    entries.add_column("Input")
+    entries.add_column("Details")
+    for entry in result.entries:
+        details = entry.skip_reason or "-"
+        if entry.chapter_result:
+            details = "; ".join(entry.chapter_result.messages) or entry.chapter_result.chapter_label
+        entries.add_row(str(entry.line_number), entry.status.value, entry.source_value or "-", details)
+    console.print(entries)
+
+
+def render_json(result: ChapterResult | BatchResult) -> str:
     return json.dumps(result.to_dict(), indent=2, ensure_ascii=True)
