@@ -52,6 +52,25 @@ Extrair e salvar as imagens:
 .venv/bin/python -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>" --save
 ```
 
+Extrair varios capitulos a partir de um arquivo texto com 1 URL por linha:
+
+```bash
+.venv/bin/python -m src.cli.main extract "/caminho/para/chapters.txt" --file
+```
+
+Extrair varios capitulos e salvar as imagens:
+
+```bash
+.venv/bin/python -m src.cli.main extract "/caminho/para/chapters.txt" --file --save
+```
+
+Exemplo de `chapters.txt`:
+
+```text
+https://mangadex.org/chapter/<chapter-id-1>
+https://mangadex.org/chapter/<chapter-id-2>
+```
+
 ## Exemplo de saida
 
 ```text
