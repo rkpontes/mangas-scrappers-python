@@ -62,7 +62,7 @@ description: "Task list for manga chapter image extraction feature"
 ### Validation for User Story 1 (MANDATORY) ⚠️
 
 - [x] T013 [US1] Update manual extraction validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
-- [ ] T014 [US1] Manually validate happy path extraction and incompatible-source behavior using `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T014 [US1] Manually validate happy path extraction and incompatible-source behavior using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 1
 
@@ -86,7 +86,7 @@ description: "Task list for manga chapter image extraction feature"
 ### Validation for User Story 2 (MANDATORY)
 
 - [x] T021 [US2] Update save-flow and collision validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
-- [ ] T022 [US2] Manually validate save success, folder naming, and collision handling using `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T022 [US2] Manually validate save success, folder naming, and collision handling using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 2
 
@@ -109,7 +109,7 @@ description: "Task list for manga chapter image extraction feature"
 ### Validation for User Story 3 (MANDATORY)
 
 - [x] T028 [US3] Update failure-mode validation coverage in `specs/001-chapter-image-fetcher/quickstart.md`
-- [ ] T029 [US3] Manually validate invalid URL, unsupported structure, inaccessible content, and save failure scenarios using `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T029 [US3] Manually validate invalid URL, unsupported structure, inaccessible content, and save failure scenarios using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 3
 
@@ -130,7 +130,7 @@ description: "Task list for manga chapter image extraction feature"
 - [x] T035 [P] Document installation and run commands in `/Users/raphaelpontes/Documents/Projetos/Scrappers/mangas-scrappers/AGENTS.md`
 - [x] T036 Code cleanup and simplification across `src/cli/main.py`, `src/scrapers/`, and `src/services/`
 - [x] T037 [P] Update compatibility guidance and recommended-site notes in `specs/001-chapter-image-fetcher/spec.md`
-- [ ] T038 Run the full manual validation checklist and sync final expected behavior in `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T038 Run the full manual validation checklist and sync final expected behavior in `specs/001-chapter-image-fetcher/quickstart.md`
 
 ---
 

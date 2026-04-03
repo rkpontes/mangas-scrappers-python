@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from urllib.parse import urlparse
 
-from src.lib.text import extract_chapter_id, normalize_label, safe_extension
+from src.lib.text import extract_chapter_id, format_chapter_label, normalize_label, safe_extension
 from src.scrapers.adapters.base import SourceAdapter
 from src.scrapers.models import ChapterResult, ImageEntry, ResultStatus
 
@@ -30,7 +30,11 @@ class MangaDexAdapter(SourceAdapter):
 
         chapter_number = chapter_attributes.get("chapter") or "chapter"
         chapter_title = chapter_attributes.get("title") or f"Chapter {chapter_number}"
-        chapter_label = normalize_label(chapter_title, f"chapter-{chapter_number}")
+        chapter_label = format_chapter_label(
+            chapter_number=chapter_attributes.get("chapter"),
+            chapter_title=chapter_title,
+            fallback=f"chapter-{chapter_number}",
+        )
         image_entries = []
         chapter_info = at_home["chapter"]
         for index, filename in enumerate(chapter_info.get("data", []), start=1):
