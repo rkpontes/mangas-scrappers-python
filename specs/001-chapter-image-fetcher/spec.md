@@ -202,6 +202,8 @@ that each outcome returns a distinct, actionable explanation.
 - Supported sources may vary over time, and unsupported sources are expected to
   fail with explicit feedback rather than hidden fallback behavior.
 - Recommended sites are compatibility hints, not an exclusive allowlist.
+- MangaDex is the initial recommended compatibility reference for manual
+  validation and early usage examples.
 - The application will only target access flows that are available to the user
   without bypassing monetization, advertisements, access restrictions, or bot
   protections.

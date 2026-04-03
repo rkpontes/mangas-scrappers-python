@@ -27,10 +27,10 @@ description: "Task list for manga chapter image extraction feature"
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create the project directories from the plan in `src/cli/`, `src/scrapers/adapters/`, `src/services/`, and `src/lib/`
-- [ ] T002 Initialize the Python project configuration and dependencies in `pyproject.toml`
-- [ ] T003 [P] Add package markers in `src/__init__.py`, `src/cli/__init__.py`, `src/scrapers/__init__.py`, `src/scrapers/adapters/__init__.py`, `src/services/__init__.py`, and `src/lib/__init__.py`
-- [ ] T004 [P] Create the CLI entrypoint skeleton in `src/cli/main.py`
+- [x] T001 Create the project directories from the plan in `src/cli/`, `src/scrapers/adapters/`, `src/services/`, and `src/lib/`
+- [x] T002 Initialize the Python project configuration and dependencies in `pyproject.toml`
+- [x] T003 [P] Add package markers in `src/__init__.py`, `src/cli/__init__.py`, `src/scrapers/__init__.py`, `src/scrapers/adapters/__init__.py`, `src/services/__init__.py`, and `src/lib/__init__.py`
+- [x] T004 [P] Create the CLI entrypoint skeleton in `src/cli/main.py`
 
 ---
 
@@ -40,14 +40,14 @@ description: "Task list for manga chapter image extraction feature"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T005 Create shared extraction data models in `src/scrapers/models.py`
-- [ ] T006 [P] Implement HTTP fetching helpers with timeouts and redirect handling in `src/lib/http_client.py`
-- [ ] T007 [P] Implement HTML parsing helpers for image and metadata selection in `src/lib/html_parser.py`
-- [ ] T008 [P] Implement text normalization helpers for safe folder and filename generation in `src/lib/text.py`
-- [ ] T009 Define the adapter interface and compatibility contract in `src/scrapers/adapters/base.py`
-- [ ] T010 Implement output path construction for `/contents/<manga title>/<chapter label>/<image index>.<image extension>` in `src/services/path_builder.py`
-- [ ] T011 Implement shared result rendering for human and JSON output in `src/services/result_formatter.py`
-- [ ] T012 Implement the extraction orchestrator that selects adapters and assembles `Chapter Result` in `src/scrapers/extractor.py`
+- [x] T005 Create shared extraction data models in `src/scrapers/models.py`
+- [x] T006 [P] Implement HTTP fetching helpers with timeouts and redirect handling in `src/lib/http_client.py`
+- [x] T007 [P] Implement HTML parsing helpers for image and metadata selection in `src/lib/html_parser.py`
+- [x] T008 [P] Implement text normalization helpers for safe folder and filename generation in `src/lib/text.py`
+- [x] T009 Define the adapter interface and compatibility contract in `src/scrapers/adapters/base.py`
+- [x] T010 Implement output path construction for `/contents/<manga title>/<chapter label>/<image index>.<image extension>` in `src/services/path_builder.py`
+- [x] T011 Implement shared result rendering for human and JSON output in `src/services/result_formatter.py`
+- [x] T012 Implement the extraction orchestrator that selects adapters and assembles `Chapter Result` in `src/scrapers/extractor.py`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -61,17 +61,17 @@ description: "Task list for manga chapter image extraction feature"
 
 ### Validation for User Story 1 (MANDATORY) ⚠️
 
-- [ ] T013 [US1] Update manual extraction validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T013 [US1] Update manual extraction validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
 - [ ] T014 [US1] Manually validate happy path extraction and incompatible-source behavior using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 1
 
-- [ ] T015 [P] [US1] Implement generic public-page extraction heuristics in `src/scrapers/adapters/generic.py`
-- [ ] T016 [P] [US1] Implement MangaDex-specific extraction rules in `src/scrapers/adapters/mangadex.py`
-- [ ] T017 [US1] Integrate adapter registration and fallback selection in `src/scrapers/extractor.py`
-- [ ] T018 [US1] Implement the extract command flow and URL validation in `src/cli/main.py`
-- [ ] T019 [US1] Add compatibility messaging for recommended vs non-recommended sources in `src/services/result_formatter.py`
-- [ ] T020 [US1] Add explicit extraction error mapping for invalid URL, inaccessible content, unsupported structure, and no images found in `src/scrapers/extractor.py`
+- [x] T015 [P] [US1] Implement generic public-page extraction heuristics in `src/scrapers/adapters/generic.py`
+- [x] T016 [P] [US1] Implement MangaDex-specific extraction rules in `src/scrapers/adapters/mangadex.py`
+- [x] T017 [US1] Integrate adapter registration and fallback selection in `src/scrapers/extractor.py`
+- [x] T018 [US1] Implement the extract command flow and URL validation in `src/cli/main.py`
+- [x] T019 [US1] Add compatibility messaging for recommended vs non-recommended sources in `src/services/result_formatter.py`
+- [x] T020 [US1] Add explicit extraction error mapping for invalid URL, inaccessible content, unsupported structure, and no images found in `src/scrapers/extractor.py`
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and manually validatable independently
 
@@ -85,16 +85,16 @@ description: "Task list for manga chapter image extraction feature"
 
 ### Validation for User Story 2 (MANDATORY)
 
-- [ ] T021 [US2] Update save-flow and collision validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T021 [US2] Update save-flow and collision validation steps in `specs/001-chapter-image-fetcher/quickstart.md`
 - [ ] T022 [US2] Manually validate save success, folder naming, and collision handling using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 2
 
-- [ ] T023 [P] [US2] Implement image download and extension resolution in `src/services/image_downloader.py`
-- [ ] T024 [US2] Implement `/contents` directory creation and safe chapter path handling in `src/services/path_builder.py`
-- [ ] T025 [US2] Integrate save execution and `Save Result` assembly in `src/services/image_downloader.py`
-- [ ] T026 [US2] Wire the `--save` option into the CLI command flow in `src/cli/main.py`
-- [ ] T027 [US2] Add collision detection and non-destructive save errors to the save workflow in `src/services/image_downloader.py`
+- [x] T023 [P] [US2] Implement image download and extension resolution in `src/services/image_downloader.py`
+- [x] T024 [US2] Implement `/contents` directory creation and safe chapter path handling in `src/services/path_builder.py`
+- [x] T025 [US2] Integrate save execution and `Save Result` assembly in `src/services/image_downloader.py`
+- [x] T026 [US2] Wire the `--save` option into the CLI command flow in `src/cli/main.py`
+- [x] T027 [US2] Add collision detection and non-destructive save errors to the save workflow in `src/services/image_downloader.py`
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -108,16 +108,16 @@ description: "Task list for manga chapter image extraction feature"
 
 ### Validation for User Story 3 (MANDATORY)
 
-- [ ] T028 [US3] Update failure-mode validation coverage in `specs/001-chapter-image-fetcher/quickstart.md`
+- [x] T028 [US3] Update failure-mode validation coverage in `specs/001-chapter-image-fetcher/quickstart.md`
 - [ ] T029 [US3] Manually validate invalid URL, unsupported structure, inaccessible content, and save failure scenarios using `specs/001-chapter-image-fetcher/quickstart.md`
 
 ### Implementation for User Story 3
 
-- [ ] T030 [P] [US3] Add structured failure reason categories and message builders in `src/services/result_formatter.py`
-- [ ] T031 [P] [US3] Add partial-result and failure-state handling in `src/scrapers/models.py`
-- [ ] T032 [US3] Implement non-zero exit behavior and warning/success exit rules in `src/cli/main.py`
-- [ ] T033 [US3] Normalize save and extraction failures into user-visible messages in `src/services/image_downloader.py`
-- [ ] T034 [US3] Refine extractor failure reporting for redirect-to-landing-page and missing-image edge cases in `src/scrapers/extractor.py`
+- [x] T030 [P] [US3] Add structured failure reason categories and message builders in `src/services/result_formatter.py`
+- [x] T031 [P] [US3] Add partial-result and failure-state handling in `src/scrapers/models.py`
+- [x] T032 [US3] Implement non-zero exit behavior and warning/success exit rules in `src/cli/main.py`
+- [x] T033 [US3] Normalize save and extraction failures into user-visible messages in `src/services/image_downloader.py`
+- [x] T034 [US3] Refine extractor failure reporting for redirect-to-landing-page and missing-image edge cases in `src/scrapers/extractor.py`
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -127,9 +127,9 @@ description: "Task list for manga chapter image extraction feature"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T035 [P] Document installation and run commands in `/Users/raphaelpontes/Documents/Projetos/Scrappers/mangas-scrappers/AGENTS.md`
-- [ ] T036 Code cleanup and simplification across `src/cli/main.py`, `src/scrapers/`, and `src/services/`
-- [ ] T037 [P] Update compatibility guidance and recommended-site notes in `specs/001-chapter-image-fetcher/spec.md`
+- [x] T035 [P] Document installation and run commands in `/Users/raphaelpontes/Documents/Projetos/Scrappers/mangas-scrappers/AGENTS.md`
+- [x] T036 Code cleanup and simplification across `src/cli/main.py`, `src/scrapers/`, and `src/services/`
+- [x] T037 [P] Update compatibility guidance and recommended-site notes in `specs/001-chapter-image-fetcher/spec.md`
 - [ ] T038 Run the full manual validation checklist and sync final expected behavior in `specs/001-chapter-image-fetcher/quickstart.md`
 
 ---

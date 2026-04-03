@@ -12,11 +12,26 @@ saves them under `/contents`.
 - The target chapter page is publicly accessible to the user.
 - The chapter page is not blocked by login, cookies, or access protections.
 
+## Setup
+
+Install dependencies and verify the CLI help output:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e .
+python3 -m src.cli.main --help
+```
+
 ## Validation Steps
 
 ### 1. Extract a recommended source
 
 Run the CLI against a recommended public source such as a MangaDex chapter URL.
+
+```bash
+python3 -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>"
+```
 
 Expected result:
 - The command reports `success` or `partial`.
@@ -26,6 +41,10 @@ Expected result:
 ### 2. Save extracted images
 
 Run the same extraction with `--save`.
+
+```bash
+python3 -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>" --save
+```
 
 Expected result:
 - The command writes files under
@@ -37,6 +56,10 @@ Expected result:
 
 Run the command with an invalid URL string.
 
+```bash
+python3 -m src.cli.main extract "invalid-url"
+```
+
 Expected result:
 - The command exits non-zero.
 - The output states that the URL is invalid and no extraction was attempted.
@@ -46,6 +69,10 @@ Expected result:
 Run the command with a public chapter URL from a non-recommended or unsupported
 source.
 
+```bash
+python3 -m src.cli.main extract "https://example.com/chapter/test"
+```
+
 Expected result:
 - The command attempts extraction.
 - The output explains whether the source failed due to incompatible page
@@ -54,6 +81,11 @@ Expected result:
 ### 5. Validate save collision handling
 
 Run the same save command twice for the same chapter.
+
+```bash
+python3 -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>" --save
+python3 -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>" --save
+```
 
 Expected result:
 - The command does not silently overwrite existing files.

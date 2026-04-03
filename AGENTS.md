@@ -10,12 +10,19 @@ Auto-generated from all feature plans. Last updated: 2026-04-03
 
 ```text
 src/
-tests/
+specs/
+contents/
 ```
 
 ## Commands
 
-cd src [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] pytest [ONLY COMMANDS FOR ACTIVE TECHNOLOGIES][ONLY COMMANDS FOR ACTIVE TECHNOLOGIES] ruff check .
+- `python3 -m venv .venv`
+- `source .venv/bin/activate`
+- `pip install -e .`
+- `python3 -m src.cli.main --help`
+- `python3 -m src.cli.main extract "<chapter-url>"`
+- `python3 -m src.cli.main extract "<chapter-url>" --save`
+- `python3 -m py_compile $(find src -name '*.py' | sort)`
 
 ## Code Style
 
