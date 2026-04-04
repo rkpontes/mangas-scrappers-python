@@ -21,10 +21,14 @@ contents/
 - `source .venv/bin/activate`
 - `pip install -e .`
 - `python3 -m src.cli.main --help`
-- `python3 -m src.cli.main extract "<chapter-url>"`
-- `python3 -m src.cli.main extract "<chapter-url>" --save`
-- `python3 -m src.cli.main extract "<file-path>" --file`
-- `python3 -m src.cli.main extract "<file-path>" --file --save`
+- `python3 -m src.cli.main extract-chapter "<chapter-url>"`
+- `python3 -m src.cli.main extract-chapter "<chapter-url>" --save`
+- `python3 -m src.cli.main extract-chapter "<file-path>" --file`
+- `python3 -m src.cli.main extract-chapter "<file-path>" --file --save`
+- `python3 -m src.cli.main extract-title "<title-url>"`
+- `python3 -m src.cli.main extract-title "<title-url>" --save`
+- `python3 -m src.cli.main extract-title "<file-path>" --file`
+- `python3 -m src.cli.main extract-title "<file-path>" --file --save`
 - `python3 -m py_compile $(find src -name '*.py' | sort)`
 
 ## Code Style
@@ -32,6 +36,7 @@ contents/
 Python 3.12: Follow standard conventions
 
 ## Recent Changes
+- 003-extract-title-chapters: Added Python 3.12 + `httpx`, `selectolax`, `typer`, `rich`
 - 002-batch-url-extract: Added Python 3.12 + `httpx`, `selectolax`, `typer`, `rich`
 
 - 001-chapter-image-fetcher: Added Python 3.12 + `httpx`, `selectolax`, `typer`, `rich`

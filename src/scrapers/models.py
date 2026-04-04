@@ -176,3 +176,121 @@ class BatchResult:
             "summary": self.summary.to_dict(),
             "messages": self.messages,
         }
+
+
+@dataclass(slots=True)
+class TitleInputRequest:
+    target_value: str
+    file_mode: bool = False
+    save_enabled: bool = False
+    output_format: str = "human"
+
+
+@dataclass(slots=True)
+class TitleInputEntry:
+    line_number: int
+    raw_value: str
+    normalized_value: str
+    entry_state: BatchEntryState = BatchEntryState.QUEUED
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "line_number": self.line_number,
+            "raw_value": self.raw_value,
+            "normalized_value": self.normalized_value,
+            "entry_state": self.entry_state.value,
+        }
+
+
+@dataclass(slots=True)
+class TitleDiscovery:
+    title_url: str
+    title_label: str
+    chapter_urls: list[str] = field(default_factory=list)
+    duplicate_chapter_urls: list[str] = field(default_factory=list)
+    messages: list[str] = field(default_factory=list)
+
+    def add_message(self, message: str) -> None:
+        if message not in self.messages:
+            self.messages.append(message)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
+class TitleChapterResult:
+    chapter_index: int
+    source_value: str
+    status: ResultStatus | SaveStatus
+    chapter_result: ChapterResult | None = None
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "chapter_index": self.chapter_index,
+            "source_value": self.source_value,
+            "status": self.status.value,
+            "chapter_result": self.chapter_result.to_dict() if self.chapter_result else None,
+        }
+
+
+@dataclass(slots=True)
+class TitleResult:
+    source_value: str
+    source_line: int | None = None
+    status: ResultStatus | SaveStatus = ResultStatus.SUCCESS
+    discovery: TitleDiscovery | None = None
+    chapter_results: list[TitleChapterResult] = field(default_factory=list)
+    messages: list[str] = field(default_factory=list)
+
+    def add_message(self, message: str) -> None:
+        if message not in self.messages:
+            self.messages.append(message)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "source_value": self.source_value,
+            "source_line": self.source_line,
+            "status": self.status.value,
+            "discovery": self.discovery.to_dict() if self.discovery else None,
+            "chapter_results": [entry.to_dict() for entry in self.chapter_results],
+            "messages": self.messages,
+        }
+
+
+@dataclass(slots=True)
+class TitleRunSummary:
+    total_lines: int = 0
+    processed_titles: int = 0
+    successful_titles: int = 0
+    failed_titles: int = 0
+    skipped_titles: int = 0
+    discovered_chapters: int = 0
+    successful_chapters: int = 0
+    failed_chapters: int = 0
+    skipped_chapters: int = 0
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(slots=True)
+class TitleRunResult:
+    target_value: str
+    file_mode: bool = False
+    entries: list[TitleResult] = field(default_factory=list)
+    summary: TitleRunSummary = field(default_factory=TitleRunSummary)
+    messages: list[str] = field(default_factory=list)
+
+    def add_message(self, message: str) -> None:
+        if message not in self.messages:
+            self.messages.append(message)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "target_value": self.target_value,
+            "file_mode": self.file_mode,
+            "entries": [entry.to_dict() for entry in self.entries],
+            "summary": self.summary.to_dict(),
+            "messages": self.messages,
+        }

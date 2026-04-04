@@ -5,7 +5,7 @@ import json
 from rich.console import Console
 from rich.table import Table
 
-from src.scrapers.models import BatchResult, ChapterResult, FailureReason
+from src.scrapers.models import BatchResult, ChapterResult, FailureReason, TitleRunResult
 
 
 RECOMMENDED_DOMAINS = {"mangadex.org"}
@@ -92,5 +92,55 @@ def render_human_batch(console: Console, result: BatchResult) -> None:
     console.print(entries)
 
 
-def render_json(result: ChapterResult | BatchResult) -> str:
+def render_human_title_run(console: Console, result: TitleRunResult) -> None:
+    summary = Table(show_header=False, box=None)
+    summary.add_row("Input", result.target_value)
+    summary.add_row("File Mode", "yes" if result.file_mode else "no")
+    summary.add_row("Processed Titles", str(result.summary.processed_titles))
+    summary.add_row("Successful Titles", str(result.summary.successful_titles))
+    summary.add_row("Failed Titles", str(result.summary.failed_titles))
+    summary.add_row("Skipped Titles", str(result.summary.skipped_titles))
+    summary.add_row("Discovered Chapters", str(result.summary.discovered_chapters))
+    summary.add_row("Successful Chapters", str(result.summary.successful_chapters))
+    summary.add_row("Failed Chapters", str(result.summary.failed_chapters))
+    summary.add_row("Skipped Chapters", str(result.summary.skipped_chapters))
+    if result.file_mode:
+        summary.add_row("Total Lines", str(result.summary.total_lines))
+    console.print(summary)
+
+    if result.messages:
+        for message in result.messages:
+            console.print(f"- {message}")
+
+    for entry in result.entries:
+        title_table = Table(show_header=False, box=None, title="Title Result")
+        title_table.add_row("Source", entry.source_value)
+        title_table.add_row("Line", str(entry.source_line or "-"))
+        title_table.add_row("Status", entry.status.value)
+        if entry.discovery:
+            title_table.add_row("Title", entry.discovery.title_label)
+            title_table.add_row("Chapters", str(len(entry.discovery.chapter_urls)))
+        console.print(title_table)
+
+        discovery_messages = list(entry.discovery.messages) if entry.discovery else []
+        for message in discovery_messages + entry.messages:
+            console.print(f"- {message}")
+
+        if entry.chapter_results:
+            chapters = Table(title="Discovered Chapters")
+            chapters.add_column("Index")
+            chapters.add_column("Status")
+            chapters.add_column("Chapter")
+            chapters.add_column("Details")
+            for chapter_entry in entry.chapter_results:
+                chapter_label = chapter_entry.source_value
+                details = "-"
+                if chapter_entry.chapter_result:
+                    chapter_label = chapter_entry.chapter_result.chapter_label
+                    details = "; ".join(chapter_entry.chapter_result.messages) or chapter_entry.chapter_result.source_url
+                chapters.add_row(str(chapter_entry.chapter_index), chapter_entry.status.value, chapter_label, details)
+            console.print(chapters)
+
+
+def render_json(result: ChapterResult | BatchResult | TitleRunResult) -> str:
     return json.dumps(result.to_dict(), indent=2, ensure_ascii=True)
