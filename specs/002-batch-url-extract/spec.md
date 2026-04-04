@@ -9,7 +9,7 @@
 
 ### Session 2026-04-03
 
-- Q: Como o usuário aciona o processamento em lote no comando `extract`? → A: O usuário informa um caminho de arquivo no argumento principal e ativa o modo de arquivo com `--file`, por exemplo `python3 -m src.cli.main extract <file-path> --file --save`.
+- Q: Como o usuário aciona o processamento em lote no comando `extract-chapter`? → A: O usuário informa um caminho de arquivo no argumento principal e ativa o modo de arquivo com `--file`, por exemplo `python3 -m src.cli.main extract-chapter <file-path> --file --save`.
 
 ## User Scenarios & Validation *(mandatory)*
 
@@ -106,7 +106,7 @@ saves.
 - **FR-001**: The system MUST allow the user to provide a plain text file as
   batch input for chapter extraction.
 - **FR-001a**: The system MUST support batch input through the existing
-  extraction entrypoint by accepting a file path as the primary extraction
+  `extract-chapter` entrypoint by accepting a file path as the primary extraction
   target when file mode is explicitly requested.
 - **FR-002**: The system MUST treat each non-empty line in the file as one
   chapter URL request.
@@ -166,7 +166,7 @@ saves.
 ## Manual Validation Plan *(mandatory for v1 without automated tests)*
 
 - Create a sample text file with multiple valid chapter URLs, one per line, and
-  run the batch flow through `python3 -m src.cli.main extract <file-path>
+  run the batch flow through `python3 -m src.cli.main extract-chapter <file-path>
   --file`.
 - Confirm that each listed URL produces its own visible extraction outcome in
   the same execution.
@@ -175,7 +175,7 @@ saves.
 - Confirm that blank lines are skipped, repeated URLs are processed as separate
   attempts, and failures do not stop later lines from being processed.
 - Run the batch flow with saving enabled through
-  `python3 -m src.cli.main extract <file-path> --file --save` for a file
+  `python3 -m src.cli.main extract-chapter <file-path> --file --save` for a file
   containing multiple valid URLs and confirm that each successful chapter is
   written using the existing save organization.
 - Run the batch flow with a missing or unreadable file path and confirm that the
@@ -189,7 +189,7 @@ saves.
   for one-by-one chapter extraction and now wants a faster batch workflow.
 - The existing single-URL extraction and optional save behavior remain valid and
   are reused per URL in batch mode, with batch input selected explicitly
-  through file mode on the same extraction command.
+  through file mode on `extract-chapter`.
 - The batch input file is encoded as ordinary readable text and is prepared by
   the user outside the application.
 - First version scope is limited to sequential processing of URLs from a local

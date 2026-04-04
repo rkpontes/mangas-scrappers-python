@@ -43,25 +43,37 @@ source .venv/bin/activate
 Extrair um capitulo:
 
 ```bash
-.venv/bin/python -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>"
+.venv/bin/python -m src.cli.main extract-chapter "https://mangadex.org/chapter/<chapter-id>"
 ```
 
 Extrair e salvar as imagens:
 
 ```bash
-.venv/bin/python -m src.cli.main extract "https://mangadex.org/chapter/<chapter-id>" --save
+.venv/bin/python -m src.cli.main extract-chapter "https://mangadex.org/chapter/<chapter-id>" --save
 ```
 
 Extrair varios capitulos a partir de um arquivo texto com 1 URL por linha:
 
 ```bash
-.venv/bin/python -m src.cli.main extract "/caminho/para/chapters.txt" --file
+.venv/bin/python -m src.cli.main extract-chapter "/caminho/para/chapters.txt" --file
 ```
 
 Extrair varios capitulos e salvar as imagens:
 
 ```bash
-.venv/bin/python -m src.cli.main extract "/caminho/para/chapters.txt" --file --save
+.venv/bin/python -m src.cli.main extract-chapter "/caminho/para/chapters.txt" --file --save
+```
+
+Extrair todos os capitulos a partir de uma URL de title do MangaDex:
+
+```bash
+.venv/bin/python -m src.cli.main extract-title "https://mangadex.org/title/<title-id>/<slug>"
+```
+
+Extrair varios titles a partir de um arquivo texto com 1 URL de title por linha:
+
+```bash
+.venv/bin/python -m src.cli.main extract-title "/caminho/para/titles.txt" --file
 ```
 
 Exemplo de `chapters.txt`:
@@ -69,6 +81,13 @@ Exemplo de `chapters.txt`:
 ```text
 https://mangadex.org/chapter/<chapter-id-1>
 https://mangadex.org/chapter/<chapter-id-2>
+```
+
+Exemplo de `titles.txt`:
+
+```text
+https://mangadex.org/title/<title-id-1>/<slug-1>
+https://mangadex.org/title/<title-id-2>/<slug-2>
 ```
 
 ## Exemplo de saida

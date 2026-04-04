@@ -8,7 +8,7 @@ from src.lib.http_client import HttpClient
 from src.scrapers.adapters.base import SourceAdapter
 from src.scrapers.adapters.generic import GenericAdapter
 from src.scrapers.adapters.mangadex import MangaDexAdapter
-from src.scrapers.models import ChapterResult, FailureReason, ResultStatus
+from src.scrapers.models import ChapterResult, FailureReason, ResultStatus, TitleDiscovery
 from src.services.result_formatter import is_recommended_domain
 
 
@@ -41,6 +41,12 @@ class ChapterExtractor:
             if "redirect" in message.lower():
                 message = "The URL redirected to a page that does not expose chapter images."
             return self._failed_result(url, domain, FailureReason.UNKNOWN, message)
+
+    def discover_title_chapters(self, url: str) -> TitleDiscovery:
+        adapter = self._pick_adapter(url)
+        if not isinstance(adapter, MangaDexAdapter):
+            raise ValueError("Title extraction is currently supported only for MangaDex title URLs.")
+        return adapter.discover_title_chapters(url, self.http_client)
 
     def _pick_adapter(self, url: str) -> SourceAdapter:
         for adapter in self.adapters:

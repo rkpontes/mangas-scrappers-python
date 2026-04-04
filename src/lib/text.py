@@ -11,6 +11,10 @@ CHAPTER_ID_RE = re.compile(
     r"/chapter/(?P<chapter_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})",
     re.IGNORECASE,
 )
+TITLE_ID_RE = re.compile(
+    r"/title/(?P<title_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})",
+    re.IGNORECASE,
+)
 
 
 def normalize_label(value: str | None, fallback: str) -> str:
@@ -63,6 +67,19 @@ def _normalize_chapter_number(value: str | None) -> str | None:
 def extract_chapter_id(url: str) -> str | None:
     match = CHAPTER_ID_RE.search(url)
     return match.group("chapter_id") if match else None
+
+
+def extract_title_id(url: str) -> str | None:
+    match = TITLE_ID_RE.search(url)
+    return match.group("title_id") if match else None
+
+
+def is_mangadex_title_url(url: str) -> bool:
+    return "mangadex.org" in url.lower() and extract_title_id(url) is not None
+
+
+def build_mangadex_chapter_url(chapter_id: str) -> str:
+    return f"https://mangadex.org/chapter/{chapter_id}"
 
 
 def relative_contents_path(manga_title: str, chapter_label: str, filename: str) -> str:

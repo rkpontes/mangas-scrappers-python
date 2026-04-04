@@ -192,6 +192,10 @@ that each outcome returns a distinct, actionable explanation.
 - Run the application with a non-recommended but syntactically valid chapter URL
   and confirm the system attempts extraction before reporting the outcome.
 
+### CLI Note
+
+- The command name for chapter extraction is `extract-chapter`.
+
 ## Assumptions
 
 - The primary user is a single operator running the application for personal

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Callable
 
 from src.lib.http_client import HttpClient
 from src.lib.text import ensure_parent
@@ -13,9 +14,10 @@ class ImageDownloader:
         self.http_client = http_client
         self.path_builder = path_builder
 
-    def save(self, result: ChapterResult) -> ChapterResult:
+    def save(self, result: ChapterResult, progress_callback: Callable[[str], None] | None = None) -> ChapterResult:
         chapter_root = self.path_builder.chapter_root(result)
         collisions: list[str] = []
+        total_images = len(result.image_entries)
         for entry in result.image_entries:
             built = self.path_builder.build_image_path(result, entry)
             if built.actual_path.exists():
@@ -39,6 +41,8 @@ class ImageDownloader:
             return result
 
         for entry in result.image_entries:
+            if progress_callback:
+                progress_callback(f"Saving {result.chapter_label}: page {entry.index}/{total_images}")
             built = self.path_builder.build_image_path(result, entry)
             try:
                 ensure_parent(built.actual_path)
